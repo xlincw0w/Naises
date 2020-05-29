@@ -1,0 +1,9 @@
+.signupText {
+    font-size: 2.25rem;
+}
+
+@media screen and (max-width: 1600px) {
+    .signupText {
+        font-size: 1.8rem;
+    }
+}

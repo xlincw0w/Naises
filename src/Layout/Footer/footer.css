@@ -1,0 +1,26 @@
+.divtoanimate {
+    animation: infinite;
+    animation-name: animation;
+    animation-duration: 4s;
+    animation-direction: reverse; 
+}
+
+.textanimation {
+    animation: infinite;
+    animation-name: animationText;
+    animation-duration: 4s;
+    animation-direction: reverse; 
+}
+
+@keyframes animation {
+    0%  {border-color:#ffffff;}
+    50%  {border-color:#ff725c;}
+    100% {border-color:#ffffff;}
+ 
+}
+
+@keyframes animationText {
+    0%  {color:#ffffff;}
+    50%  {color:#ff725c;}
+    100% {color:#ffffff;}
+}

@@ -1,0 +1,4 @@
+This is a e_learning web app.
+The main objective of this app is to connect and maintain a real educatif relationship between student and there professors
+This web app is intended to be 100 % free for both students and professors
+
