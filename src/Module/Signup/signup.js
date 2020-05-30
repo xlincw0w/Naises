@@ -53,7 +53,7 @@ const params = {
         },
         "line_linked": {
             "enable": true,
-            "distance": 200,
+            "distance": 250,
             "color": "#ffffff",
             "opacity": 0.4,
             "width": 1
@@ -100,7 +100,7 @@ export default class Signup extends Component {
                 <div className="row" style={{ 'width': '100%', 'height': '45%' }}>
                     <div className="col-sm-6">
                         <div className="center white-80">
-                            <p className="signupText pt5 center" style={{ 'width': '60%' }}><span className="f1">U</span>ne plateform dédié uniquement au travail, Plus d'excuses a la fainéantise !</p>
+                            <p className="signupText pt5 center disable-select" style={{ 'width': '60%' }}><span className="f1">U</span>ne plateform dédié uniquement au travail, Plus d'excuses a la fainéantise !</p>
                         </div>
                     </div>
                     <div className="col-sm-6">
@@ -112,13 +112,13 @@ export default class Signup extends Component {
                     <div className="col-sm-6">
                         <div className="bg-white br3 shadow-3 center" style={{ 'width': '70%', 'height': '260px' }}>
                             <div className="bb bw1 b--black-50 center" style={{ 'width': '80%', 'height': '50px' }}>
-                                <p className="black-60 tc f4 pt3">Inscrivez-vous dés maintenant</p>
+                                <p className="black-60 tc f4 pt3 disable-select">Inscrivez-vous dés maintenant</p>
                             </div>
                             <div className="mt4 ml3">
-                                <p className="tc center black-70" style={{ 'width': '60%' }}>Vous ne possédez pas encore de compte ? Rejoignez nous en cliquant le bouton juste au dessous</p>
+                                <p className="tc center black-70 disable-select" style={{ 'width': '60%' }}>Vous ne possédez pas encore de compte ? Rejoignez nous en cliquant le bouton juste au dessous</p>
                             </div>
                             <div className="tc mtopqueries">
-                                <Link to="/inscription" className="NaisesButton br3 grow shadow-4">S'enregistrer</Link>
+                                <Link to="/inscription" className="NaisesButton br3 grow shadow-4 disable-select">S'enregistrer</Link>
                             </div>
                         </div>
                     </div>

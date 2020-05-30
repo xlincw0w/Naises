@@ -6,8 +6,8 @@ const Footer = () => {
     return (
         <div style={{'width': '100%'}}>
             <footer className="Footer divtoanimate tc pv5 ph2 ph4-m ph5-l bg-white shadow-3 bt bw1 b--blue">
-                <h3 className="mb3 f1 textanimation">❖</h3>
-                <small className="f5 db tc black">© 2020 <b className="ttu">Naises</b>. Tous droits réservés</small>
+                <h3 className="mb3 f1 textanimation disable-select">❖</h3>
+                <small className="f5 db tc black disable-select">© 2020 <b className="ttu">Naises</b>. Tous droits réservés</small>
                 {/* <div className="mt4">
                     <a className="link black hover-blue dib mh3 tc" href="https://www.facebook.com/xlincw0w" target="_blank" rel="noopener noreferrer" title="Facebook">
                         <svg className="dib h2 w2" fill="currentColor" viewBox="0 0 16 16"><path d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.476-1.195 1.176v1.54h2.39l-.31 2.416h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0"/></svg>

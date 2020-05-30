@@ -4,8 +4,9 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
+        historyApiFallback: true,
         contentBase: './dist',
         hot: true,
         stats: {
@@ -25,7 +26,7 @@ module.exports = {
             publicPath: false
         },
     },
-    
+
     output: {
         filename: './bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -76,7 +77,7 @@ module.exports = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({ 
+        new HtmlWebpackPlugin({
             template: './index.html',
             favicon: './pngtitle.ico'
         })
