@@ -19,6 +19,17 @@ body {
     text-decoration: none;
 }
 
+.Naisesborder {
+    border-style: solid;
+    border-color: #FF6F00;
+}
+
+.NaisesborderReverse {
+    border-style: none;
+    background: #FF6F00;
+    color: rgb(255, 255, 255, 0.8);
+}
+
 .NaisesButton {
     padding-left: 5.5rem;
     padding-right: 5.5rem;
@@ -84,13 +95,13 @@ body {
     transition: 0.3s
 }
 
-.searchInp:focus {
-    outline: none;
-    border-color: #FF512F;
+.searchInp::placeholder {
+    color: rgb(0, 0, 0, 0.3)
 }
 
-.searchInp::placeholder {
-    color: rgb(0, 0, 0, 0.4)
+.colorSelect::selection {
+    background:rgb(255, 81, 47, 0.9);
+    color: white;
 }
 
 

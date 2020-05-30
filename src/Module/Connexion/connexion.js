@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Connexion = () => {
     return (
         <div>
-            <div className="fadein tc">
+            <div className="fadein tc disable-select">
                 <div style={{ 'height': '200px' }}></div>
                 <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Identifiez-vous</p>
                 <div className="mt5">

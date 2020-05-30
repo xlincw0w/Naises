@@ -11,7 +11,7 @@ const Contact = () => {
     return (
         <div>
             <div>
-                <div className="fadein tc">
+                <div className="fadein tc disable-select">
                     <div style={{ 'height': '200px' }}></div>
                     <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>On vous écoute</p>
                     <div className="mt5">
