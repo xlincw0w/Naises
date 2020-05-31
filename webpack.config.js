@@ -3,7 +3,20 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: {
+        index: './src/index.js',
+        annonces: './src/Module/Annonces/annonces.js',
+        connexion: './src/Module/Connexion/connexion.js',
+        dashboard: './src/Module/Dashboard/dashboard.js',
+        feed: './src/Module/Feed/actionFeed.js',
+        feed: './src/Module/Feed/newsFeed.js',
+        inscription: './src/Module/Inscription/inscription.js',
+        Modules: './src/Module/Modules/modules.js',
+        presentation: './src/Module/Presentation/presentation.js',
+        professeurs: './src/Module/Professeurs/professeurs.js',
+        profile: './src/Module/Profile/profile.js',
+        signup: './src/Module/Signup/signup.js',
+    },
     devtool: 'source-map',
     devServer: {
         historyApiFallback: true,
@@ -28,7 +41,7 @@ module.exports = {
     },
 
     output: {
-        filename: './bundle.js',
+        filename: './js/[name]/[name].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
     },

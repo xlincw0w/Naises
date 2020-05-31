@@ -15,7 +15,7 @@ export default class MainNavbar extends Component {
                         <img src={search} style={{ 'width': '25px', 'height': '25px' }} className="disable-select pointer searchButton grow" onClick={() => console.log("a")} />
                     </Form>
                     <Nav className="mr-sm-2">
-                        <Link to="/connexion" className="signin black-70 disable-select">Connexion</Link>
+                        <Link to="/connexion" className="signin black-70 disable-select mh2">Connexion</Link>
                     </Nav>
                 </Navbar>
             </div>
