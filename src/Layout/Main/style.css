@@ -111,6 +111,10 @@ body {
     color: white;
 }
 
+.spinner-border {
+    width: 100px;
+    height: 100px;
+}
 
 @media screen and (max-width: 1600px) {
     .mtopqueries {

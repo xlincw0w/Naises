@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, FormControl, Form } from 'react-bootstrap';
+import { Navbar, Nav, Form } from 'react-bootstrap';
 import search from '../../Assets/Images/search.svg'
 
 export default class MainNavbar extends Component {
@@ -15,6 +15,8 @@ export default class MainNavbar extends Component {
                         <img src={search} style={{ 'width': '25px', 'height': '25px' }} className="disable-select pointer searchButton grow" onClick={() => console.log("a")} />
                     </Form>
                     <Nav className="mr-sm-2">
+                        <Link to="/profile" className="signin black-70 disable-select mh2">Profile</Link>
+                        <Link to="/dashboard" className="signin black-70 disable-select mh2">Dashboard</Link>
                         <Link to="/connexion" className="signin black-70 disable-select mh2">Connexion</Link>
                     </Nav>
                 </Navbar>

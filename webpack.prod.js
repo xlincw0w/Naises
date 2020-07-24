@@ -2,46 +2,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         index: './src/index.js',
-        annonces: './src/Module/Annonces/annonces.js',
-        connexion: './src/Module/Connexion/connexion.js',
-        dashboard: './src/Module/Dashboard/dashboard.js',
-        feed: './src/Module/Feed/actionFeed.js',
-        feed: './src/Module/Feed/newsFeed.js',
-        inscription: './src/Module/Inscription/inscription.js',
-        Modules: './src/Module/Modules/modules.js',
-        presentation: './src/Module/Presentation/presentation.js',
-        professeurs: './src/Module/Professeurs/professeurs.js',
-        profile: './src/Module/Profile/profile.js',
-        signup: './src/Module/Signup/signup.js',
-    },
-    devtool: 'source-map',
-    devServer: {
-        historyApiFallback: true,
-        contentBase: './dist',
-        hot: true,
-        stats: {
-            colors: true,
-            hash: false,
-            version: false,
-            timings: false,
-            assets: false,
-            chunks: false,
-            modules: false,
-            reasons: false,
-            children: false,
-            source: false,
-            errors: false,
-            errorDetails: false,
-            warnings: false,
-            publicPath: false
-        },
+        // annonces: './src/Module/Annonces/annonces.js',
+        // connexion: './src/Module/Connexion/connexion.js',
+        // dashboard: './src/Module/Dashboard/dashboard.js',
+        // inscription: './src/Module/Inscription/inscription.js',
+        // Modules: './src/Module/Modules/modules.js',
+        // presentation: './src/Module/Presentation/presentation.js',
+        // professeurs: './src/Module/Professeurs/professeurs.js',
+        // profile: './src/Module/Profile/profile.js',
+        // signup: './src/Module/Signup/signup.js',
     },
 
     output: {
-        filename: './js/[name]/[name].js',
+        filename: './js/bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
     },
@@ -94,6 +70,12 @@ module.exports = {
             template: './index.html',
             favicon: './pngtitle.ico'
         })
-    ]
+    ],
+
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
 
 };

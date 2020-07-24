@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
+import React, { lazy, Suspense } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 
-
 import MainNavbar from '../MainNavbar/mainNavbar'
 import Footer from '../Footer/footer'
 import Signup from '../../Module/Signup/signup'
 import Presentation from '../../Module/Presentation/presentation'
+import Loading from '../Loading/loading';
 
-// const Inscription = React.lazy(() => import('../../Module/Inscription/inscription'));
+const Inscription = lazy(() => import('../../Module/Inscription/inscription'));
+const Connexion = lazy(() => import('../../Module/Connexion/connexion'));
+const Contact = lazy(() => import('../../Module/Contact/contact'));
+const Dashboard = lazy(() => import('../../Module/Dashboard/dashboard'));
+const Profile = lazy(() => import('../../Module/Profile/profile'));
 
-import Inscription from '../../Module/Inscription/inscription'
-import Connexion from '../../Module/Connexion/connexion'
-import Contact from '../../Module/Contact/contact'
-import Dashboard from '../../Module/Dashboard/dashboard'
-import Profile from '../../Module/Profile/profile'
+import { AppContext, InitState } from '../../State/initState'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'tachyons'
@@ -27,11 +27,13 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-export default class Main extends Component {
-    render() {
-        return (
+const Main = () => {
+
+    return (
+        <AppContext.Provider value={InitState}>
             <Router>
                 <div>
+
                     <div className="row ma0 pa0 shadow-3 fixed" style={{ 'width': '100%', 'zIndex': '10' }}>
                         <MainNavbar />
                     </div>
@@ -47,94 +49,104 @@ export default class Main extends Component {
                                 </div>
                             </Route>
                             <Route path="/connexion">
-                                <Connexion />
+                                <Suspense fallback={<Loading />}>
+                                    <Connexion />
+                                </Suspense>
                             </Route>
                             <Route path="/inscription">
-                                <Inscription />
+                                <Suspense fallback={<Loading />}>
+                                    <Inscription />
+                                </Suspense>
                             </Route>
                             <Route path="/contact">
-                                <Contact />
+                                <Suspense fallback={<Loading />}>
+                                    <Contact />
+                                </Suspense>
                             </Route>
                             <Route path="/dashboard">
-                                <Dashboard
-                                    feed={
-                                        [
-                                            {
-                                                type: 'note',
-                                                date: '4 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 8h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'note',
-                                                date: '17 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 10h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'action',
-                                                date: '24 min',
-                                                name: 'khazem',
-                                                firstname: 'sabrina',
-                                                text: "a ajouté un cours a 'Ingenieur System d'information'"
-                                            },
-                                            {
-                                                type: 'note',
-                                                date: '2 h',
-                                                name: 'hadbi',
-                                                firstname: 'mouloud',
-                                                text: 'la gréve de demain est annulé merci de vous présenté au cours'
-                                            },
-                                            {
-                                                type: 'action',
-                                                date: '3 j',
-                                                name: 'khazem',
-                                                firstname: 'sabrina',
-                                                text: "a ajouté un cours a 'Ingenieur System d'information'"
-                                            },
-                                        ]
-                                    }
-                                />
+                                <Suspense fallback={<Loading />}>
+                                    <Dashboard
+                                        feed={
+                                            [
+                                                {
+                                                    type: 'note',
+                                                    date: '4 min',
+                                                    name: 'khazem',
+                                                    firstname: 'khaled',
+                                                    text: 'Demain le cours aura lieu a 8h au lieu de 9H30.'
+                                                },
+                                                {
+                                                    type: 'note',
+                                                    date: '17 min',
+                                                    name: 'khazem',
+                                                    firstname: 'khaled',
+                                                    text: 'Demain le cours aura lieu a 10h au lieu de 9H30.'
+                                                },
+                                                {
+                                                    type: 'action',
+                                                    date: '24 min',
+                                                    name: 'khazem',
+                                                    firstname: 'sabrina',
+                                                    text: "a ajouté un cours a 'Ingenieur System d'information'"
+                                                },
+                                                {
+                                                    type: 'note',
+                                                    date: '2 h',
+                                                    name: 'hadbi',
+                                                    firstname: 'mouloud',
+                                                    text: 'la gréve de demain est annulé merci de vous présenté au cours'
+                                                },
+                                                {
+                                                    type: 'action',
+                                                    date: '3 j',
+                                                    name: 'khazem',
+                                                    firstname: 'sabrina',
+                                                    text: "a ajouté un cours a 'Ingenieur System d'information'"
+                                                },
+                                            ]
+                                        }
+                                    />
+                                </Suspense>
                             </Route>
                             <Route path="/profile">
-                                <Profile
-                                    data={{
-                                        userType: 'enseignant',
-                                        name: 'khazem',
-                                        firstname: 'khaled',
-                                        username: 'khaled.khazem',
-                                        university: 'mouloud mammeri',
-                                        city: 'tizi-ouzou'
-                                    }}
+                                <Suspense fallback={<Loading />}>
+                                    <Profile
+                                        data={{
+                                            userType: 'enseignant',
+                                            name: 'khazem',
+                                            firstname: 'khaled',
+                                            username: 'khaled.khazem',
+                                            university: 'mouloud mammeri',
+                                            city: 'tizi-ouzou'
+                                        }}
 
-                                    feed={
-                                        [
-                                            {
-                                                type: 'note',
-                                                date: '4 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 8h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'note',
-                                                date: '17 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 10h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'action',
-                                                date: '24 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: "a ajouté un cours a 'Ingenieur System d'information'"
-                                            },
-                                        ]
-                                    }
-                                />
+                                        feed={
+                                            [
+                                                {
+                                                    type: 'note',
+                                                    date: '4 min',
+                                                    name: 'khazem',
+                                                    firstname: 'khaled',
+                                                    text: 'Demain le cours aura lieu a 8h au lieu de 9H30.'
+                                                },
+                                                {
+                                                    type: 'note',
+                                                    date: '17 min',
+                                                    name: 'khazem',
+                                                    firstname: 'khaled',
+                                                    text: 'Demain le cours aura lieu a 10h au lieu de 9H30.'
+                                                },
+                                                {
+                                                    type: 'action',
+                                                    date: '24 min',
+                                                    name: 'khazem',
+                                                    firstname: 'khaled',
+                                                    text: "a ajouté un cours a 'Ingenieur System d'information'"
+                                                },
+                                            ]
+                                        }
+                                    />
+                                </Suspense>
                             </Route>
                         </Switch>
                     </div>
@@ -142,7 +154,8 @@ export default class Main extends Component {
                     <Footer />
                 </div>
             </Router>
-
-        )
-    }
+        </AppContext.Provider>
+    )
 }
+
+export default Main

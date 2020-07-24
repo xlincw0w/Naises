@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Naises E Learning project",
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "server": "node server.js",
-    "watch": "webpack --watch",
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "test": "jest --watch /tests",
+    "server": "rm -rf dist && webpack --config webpack.prod.js && node server.js",
+    "build": "rm -rf dist && webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +21,9 @@
   "dependencies": {
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
+    "firebase": "^7.14.6",
+    "firebase-admin": "^8.12.1",
+    "firebaseui": "^4.5.1",
     "html-webpack-plugin": "^4.3.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",

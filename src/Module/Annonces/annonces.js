@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ActionFeed from '../Feed/actionFeed'
 import Newsfeed from '../Feed/newsFeed'
+
+import { AppContext } from '../../State/initState'
 
 const Annonces = ( {feed} ) => {
 
@@ -23,6 +25,8 @@ const Annonces = ( {feed} ) => {
         ))
     }
 
+    const state = useContext(AppContext);
+    console.log(state)
     return (
         <div className="center bg-white br3 pa3 pa4-ns ba b--black-10 shadow-1 mt3" style={{ 'width': '60%', 'minHeight': '1000px' }}>
             {
