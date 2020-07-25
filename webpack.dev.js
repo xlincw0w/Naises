@@ -13,7 +13,7 @@ module.exports = {
         contentBase: './dist',
         hot: true,
         stats: {
-            colors: false,
+            colors: true,
             hash: false,
             version: false,
             timings: false,
@@ -23,9 +23,9 @@ module.exports = {
             reasons: false,
             children: false,
             source: false,
-            errors: false,
+            errors: true,
             errorDetails: false,
-            warnings: false,
+            warnings: true,
             publicPath: false
         },
     },

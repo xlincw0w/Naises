@@ -1,18 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { constants } from '../../constants'
+
+import StudForm from './studForm'
+import ProfForm from './profForm'
+import AuthInfo from './authInfo'
+
+import Axios from 'axios'
+import bcrypt from 'bcryptjs'
+
 import './inscription.css'
 
 
 const Inscription = () => {
 
+    useEffect(() => {
+
+    }, [])
+
     const [userType, setUserType] = useState('')
-    
-    // User
-    const [nom, setNom] = useState('')
-    const [prenom, setPrenom] = useState('')
+
+    // User 
+    const [username, setUsername] = useState('')
+    const [second, setSecond] = useState('')
+    const [first, setFirst] = useState('')
     const [university, setUniversity] = useState('')
     const [email, setEmail] = useState('')
-    
+    const [domain, setDomain] = useState('')
+
+    // Auth
+    const [passwd, setPasswd] = useState('')
+    const [passwd_confirm, setPasswdConfirm] = useState('')
+
     // Utilities
     const [showUserType, setShowUserType] = useState(true)
     const [showFormProf, setShowFormProf] = useState(false)
@@ -20,29 +39,114 @@ const Inscription = () => {
     const [switchToAuthInfo, setSwitchAuthInfo] = useState(false)
     const [switchToCon, setSwitchToCon] = useState(false)
 
+    const FormTest = (type) => {
+        if (type === 'enseignant') {
+            if (second.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (first.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (email.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (university.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (domain.length === 0) return { passed: false, error: 'length', target: 'second' }
+
+            if (!constants.alph_rg.test(second)) return { passed: false, error: 'invalid', target: 'second' }
+            if (!constants.alph_rg.test(first)) return { passed: false, error: 'invalid', target: 'first' }
+            if (!constants.email_rg.test(email)) return { passed: false, error: 'invalid', target: 'email' }
+            if (!constants.alphanum_rg.test(university)) return { passed: false, error: 'invalid', target: 'university' }
+            if (!constants.alph_rg.test(domain)) return { passed: false, error: 'invalid', target: 'domain' }
+        }
+
+        if (type === 'etudiant') {
+            if (second.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (first.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (email.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (university.length === 0) return { passed: false, error: 'length', target: 'second' }
+            if (domain.length === 0) return { passed: false, error: 'length', target: 'second' }
+
+            if (!constants.alph_rg.test(second)) return { passed: false, error: 'invalid', target: 'second' }
+            if (!constants.alph_rg.test(first)) return { passed: false, error: 'invalid', target: 'first' }
+            if (!constants.email_rg.test(email)) return { passed: false, error: 'invalid', target: 'email' }
+            if (!constants.alphanum_rg.test(university)) return { passed: false, error: 'invalid', target: 'university' }
+            if (!constants.alph_rg.test(domain)) return { passed: false, error: 'invalid', target: 'domain' }
+        }
+
+        return { passed: true }
+    }
+
+    const AuthTest = () => {
+        if (username.length === 0) return { passed: false, error: 'length', target: 'username' }
+        if (passwd.length === 0) return { passed: false, error: 'length', target: 'passwd' }
+        if (passwd_confirm.length === 0) return { passed: false, error: 'length', target: 'passwd_confirm' }
+
+        if (!constants.username_rg.test(username)) return { passed: false, error: 'invalid', target: 'username' }
+
+        if (passwd.length < 8) return { passed: false, error: 'weak', target: 'passwd' }
+        if (passwd_confirm.length < 8) return { passed: false, error: 'weak', target: 'passwd_confirm' }
+
+        if (passwd !== passwd_confirm) return { passed: false, error: 'unmatched', target: 'passwd' }
+
+        return { passed: true }
+    }
+
     const ProfHandler = () => {
+        setUserType('enseignant')
         setShowUserType(false)
         setShowFormProf(true)
     }
 
     const StudHandler = () => {
+        setUserType('etudiant')
         setShowUserType(false)
         setShowFormStud(true)
     }
 
     const FormProfHandler = () => {
-        setShowFormProf(false)
-        setSwitchAuthInfo(true)
+        const test = FormTest(userType)
+        if (test.passed) {
+            setShowFormProf(false)
+            setSwitchAuthInfo(true)
+        } else {
+            alert('Assurez-vous de remplir le formulaire et ce avec des données correcte !')
+        }
     }
 
     const FormStudHandler = () => {
-        setShowFormStud(false)
-        setSwitchAuthInfo(true)
+        const test = FormTest(userType)
+        if (test.passed) {
+            setShowFormStud(false)
+            setSwitchAuthInfo(true)
+        } else {
+            alert('Assurez-vous de remplir le formulaire et ce avec des données correcte !')
+        }
     }
 
     const AuthInfoHandler = () => {
-        setSwitchAuthInfo(false)
-        setSwitchToCon(true)
+        const test = AuthTest()
+
+        if (test.passed) {
+
+            let salt = bcrypt.genSaltSync(3);
+            let hashed_passwd = bcrypt.hashSync(passwd, salt);
+            
+            Axios.post(constants.url + '/signup/user', {
+                first_user: first,
+                second_user: second,
+                username: username,
+                email_user: email,
+                university_user: university,
+                domain_user: domain,
+                type_user: userType,
+                hashed_passwd: hashed_passwd,
+            }).then(res => {
+                if (!res.data.added) {
+                    alert('Erreur')
+                } else {
+                    setSwitchAuthInfo(false)
+                    setSwitchToCon(true)
+                }
+            })
+
+        } else {
+            alert('Assurez-vous de remplir le formulaire et ce avec des données correcte !')
+        }
     }
 
     const WhoYouAre = () => {
@@ -54,109 +158,6 @@ const Inscription = () => {
                 <div className="mt6">
                     <Link to="#" className="NaisesButton br3 shadow-4 disable-select mh3" onClick={() => ProfHandler()}>Enseignant</Link>
                     <Link to="#" className="NaisesButton br3 shadow-4 disable-select mh3" onClick={() => StudHandler()}>Etudiant</Link>
-                </div>
-            </div>
-        )
-    }
-
-    const ProfForm = () => {
-
-        return (
-            <div className="fadein" style={{ 'display': showFormProf ? 'default' : 'none' }}>
-                <div style={{ 'height': '200px' }}></div>
-                <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Cher professeur</p>
-                <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Merci de bien vouloir remplir ce formulaire</p>
-                <div className="mt5">
-                    <div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Nom</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Prenom</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Email</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Université</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Domaine</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                    </div>
-                    <div className="mt5">
-                        <Link to="#" className="NaisesButton br3 shadow-4 disable-select" onClick={() => FormProfHandler()}>Continuer</Link>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const StudForm = () => {
-        return (
-            <div className="fadein" style={{ 'display': showFormStud ? 'default' : 'none' }}>
-                <div style={{ 'height': '200px' }}></div>
-                <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Cher etudiant</p>
-                <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Merci de bien vouloir remplir ce formulaire</p>
-                <div className="mt5">
-                    <div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Nom</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Prenom</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Email</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Université</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Domaine</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                    </div>
-                    <div className="mt5">
-                        <Link to="#" className="NaisesButton br3 shadow-4 disable-select" onClick={() => FormStudHandler()}>Continuer</Link>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const AuthInfo = () => {
-        return (
-            <div className="fadein" style={{ 'display': switchToAuthInfo ? 'default' : 'none' }}>
-                <div style={{ 'height': '200px' }}></div>
-                <p className="black-70 disable-select" style={{ 'fontSize': '2rem' }}>Introduisez vos informations d'authentification</p>
-                <div className="mt5">
-                    <div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Identifiant</label>
-                            <input className="ba b--black-20 pa2 mb2" type="text"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Mot de passe</label>
-                            <input className="ba b--black-20 pa2 mb2" type="password"></input>
-                        </div>
-                        <div>
-                            <label style={{ 'width': '250px', 'textAlign': 'start' }}><span className="disable-select mr2 orange">❖</span>Confirmer mot de passe</label>
-                            <input className="ba b--black-20 pa2 mb2" type="password"></input>
-                        </div>
-                    </div>
-                    <div className="mt5">
-                        <Link to="#" className="NaisesButton br3 shadow-4 disable-select" onClick={() => AuthInfoHandler()}>Adhérer</Link>
-                    </div>
                 </div>
             </div>
         )
@@ -175,14 +176,38 @@ const Inscription = () => {
         )
     }
 
+    const tools = {
+        showFormStud,
+        showFormProf,
+        first,
+        second,
+        email,
+        university,
+        domain,
+        username,
+        passwd,
+        passwd_confirm,
+        setFirst,
+        setSecond,
+        setEmail,
+        setUniversity,
+        setDomain,
+        setUsername,
+        setPasswd,
+        setPasswdConfirm,
+        switchToAuthInfo,
+        FormStudHandler,
+        FormProfHandler,
+        AuthInfoHandler,
+    }
 
     return (
         <div className="tc" >
 
             <WhoYouAre />
-            <ProfForm />
-            <StudForm />
-            <AuthInfo />
+            <StudForm tools={tools} />
+            <ProfForm tools={tools} />
+            <AuthInfo tools={tools} />
             <AccountCreated />
 
         </div>

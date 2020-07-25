@@ -14,7 +14,7 @@ export default class Presentation extends Component {
                     <p className="center black-60 f5 disable-select" style={{ 'width': '30%' }}>
                         Naises est une plateform dédié uniquement aux etudes,
                         notre principal objectif est de créer une connexion directe
-                        entre nos chers enseignants et nos etudiants du pays.
+                        entre un enseignant et ses etudiants.
                     </p>
                 </div>
 

@@ -116,6 +116,28 @@ body {
     height: 100px;
 }
 
+.hide {
+    opacity: 0
+}
+
+.trans {
+    transition: 0.5s
+}
+
+.HighlightAnimation {
+    animation: infinite;
+    animation-name: HighlightAnimation;
+    animation-duration: 4s;
+    animation-direction: reverse; 
+}
+
+@keyframes HighlightAnimation {
+    0%  {color:#000000; font-size: 16px}
+    50%  {color:#ff725c;  font-size: 18px}
+    100% {color:#000000; font-size: 16px}
+ 
+}
+
 @media screen and (max-width: 1600px) {
     .mtopqueries {
         margin-top: 1.5rem;
