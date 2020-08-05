@@ -131,11 +131,19 @@ body {
     animation-direction: reverse; 
 }
 
+.dropdown-item.active {
+    color: black;
+    background-color: white;
+}
+
+#dropdown-basic {
+    padding: 0
+}
+
 @keyframes HighlightAnimation {
     0%  {color:#000000; font-size: 16px}
     50%  {color:#ff725c;  font-size: 18px}
     100% {color:#000000; font-size: 16px}
- 
 }
 
 @media screen and (max-width: 1600px) {

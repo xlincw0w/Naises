@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Navbar } from 'react-bootstrap'
 import { slide as Menu } from 'react-burger-menu'
 import cx from 'classnames'
-import Annonces from '../Annonces/annonces';
-import Modules from '../Modules/modules';
-import Professeurs from '../Professeurs/professeurs';
+import Annonces from '../Annonces/annonces'
+import Modules from '../Modules/modules'
+import Professeurs from '../Professeurs/professeurs'
 
 import './dashboard.css'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
 
     const [trackClick, setTrackClick] = useState('annonces')
+
+    console.log('dashboard', props.user.type_user)
 
     return (
         <div className="bg-image">
@@ -48,7 +51,7 @@ const Dashboard = () => {
                 </div>
             </Menu>
 
-            <div className="pt6">
+            <div style={{paddingTop: '5rem'}}>
                 <div className="mb6">
                     <div className="center bg-white br3 pa3 p0 ba b--black-10 shadow-1 tc pt0" style={{ 'width': '60%', 'height': '140px' }}>
                         <div className="mb3">
@@ -72,15 +75,21 @@ const Dashboard = () => {
                         >
                             <p className="dib" style={{ 'width': '150px' }}>Annonces</p>
                         </Link>
-                        <Link to="#" className={cx(
-                            "NaisesButton br3 grow shadow-4 disable-select mh1",
-                            { "NaisesButton-click": (trackClick == 'profsubs') }
-                        )}
-                            style={{ 'paddingLeft': '0.4rem', 'paddingRight': '0.4rem' }}
-                            onClick={() => { setTrackClick('profsubs') }}
-                        >
-                            <p className="dib" style={{ 'width': '150px' }}>Vos professeurs</p>
-                        </Link>
+                        {
+                            props.user.type_user === 'etudiant' ?
+                                <Link to="#" className={cx(
+                                    "NaisesButton br3 grow shadow-4 disable-select mh1",
+                                    { "NaisesButton-click": (trackClick == 'profsubs') }
+                                )}
+                                    style={{ 'paddingLeft': '0.4rem', 'paddingRight': '0.4rem' }}
+                                    onClick={() => { setTrackClick('profsubs') }}
+                                >
+                                    <p className="dib" style={{ 'width': '150px' }}>Vos professeurs</p>
+                                </Link>
+                                :
+                                <br />
+                        }
+
                     </div>
 
                     <div>
@@ -102,4 +111,8 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+const mapState = (state) => ({
+    user: state.mainReducer.user
+})
+
+export default connect(mapState, null)(Dashboard)

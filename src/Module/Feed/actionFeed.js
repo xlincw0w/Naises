@@ -12,7 +12,7 @@ const ActionFeed = ({name, date, text}) => {
             </div>
             <div className="row">
                 <div className="center ph2" style={{ 'width': '80%' }}>
-                    <p>{text}</p>
+                    <p style={{width: '60%'}} >{text}</p>
                 </div>
             </div>
         </div>

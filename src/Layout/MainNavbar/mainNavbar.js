@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Form, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Navbar, Nav, Form, Dropdown } from 'react-bootstrap'
 import { disconnectUser } from '../../reducers/MainReducer/main_reducer'
+import { BsFillPersonLinesFill, BsBellFill } from "react-icons/bs"
 import search from '../../Assets/Images/search.svg'
 import cx from 'classnames'
 
@@ -15,6 +16,7 @@ const MainNavbar = (props) => {
 
     return (
         <div style={{ 'width': '100%' }}>
+    
             <Navbar bg="light" variant="light">
                 <Navbar.Brand><span className="textanimation disable-select">❖</span></Navbar.Brand>
                 <Link to="/" className="mr-auto orange unlink f5 disable-select">N<span style={{ 'fontSize': '1.25rem' }}>▲</span>ISES</Link>
@@ -25,17 +27,38 @@ const MainNavbar = (props) => {
                 <Nav className="mr-sm-2">
                     <Link to="/connexion" className={cx("signin black-70 disable-select mh2", { "dn": props.connected })}>Connexion</Link>
                     <div className={props.connected ? "block" : "dn"}>
-                        <Dropdown drop="left">
-                            <Dropdown.Toggle variant="outline-danger" id="dropdown-basic">
-                                <label style={{ width: '80px', height: '18px' }} className="signin black disable-select mh2">{props.user.username}</label>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#">Voir profile</Dropdown.Item>
-                                <Dropdown.Item href="#">Paramétres</Dropdown.Item>
-                                <Dropdown.Divider />
-                                <Dropdown.Item href="#" onClick={logout}>Se déconnecter</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <div className="dib p0">
+                            <Dropdown drop="left">
+                                <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
+                                    <label style={{ width: '50px', height: '18px' }} className="signin black disable-select mh2"><BsBellFill style={{ fontSize: '25px', marginTop: '4px' }} /></label>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#" className="tc">Notification 1</Dropdown.Item>
+                                    <Dropdown.Item href="#" className="tc">Notification 2</Dropdown.Item>
+                                    <Dropdown.Item href="#" className="tc">Notification 3</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                        <div className="dib">
+                            <Dropdown drop="left">
+                                <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
+                                    <label style={{ width: '50px', height: '18px' }} className="signin black disable-select mh2"><BsFillPersonLinesFill style={{ fontSize: '30px' }} /></label>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#" className="tc">Identifiant : <label className="orange">{props.user.username}</label></Dropdown.Item>
+                                    <Dropdown.Item href="#" className="tc"><label className="orange">{props.user.type_user.capitalize()}</label></Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item href={"/profile/" + props.user.username} className="tc">Voir profile</Dropdown.Item>
+                                    <Dropdown.Item href="#" className="tc">Paramétres</Dropdown.Item>
+                                    <Dropdown.Item href="#" style={{ height: '20px' }}></Dropdown.Item>
+                                    <Dropdown.Item href="#" className="textanimation disable-select tc" style={{ fontSize: '40px' }}>❖</Dropdown.Item>
+                                    <Dropdown.Item href="#" style={{ height: '20px' }}></Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item href="#" className="tc" onClick={logout}>Se déconnecter</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+
                     </div>
                 </Nav>
             </Navbar>

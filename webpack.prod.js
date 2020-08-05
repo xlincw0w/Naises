@@ -17,9 +17,8 @@ module.exports = {
     },
 
     output: {
-        filename: './js/bundle.js',
+        filename: './js/[contentHash].js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
     },
 
     module: {
@@ -33,15 +32,24 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[hash].[ext]',
+                        outputPath: 'assets'
+                    }
+                }
+
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[hash].[ext]',
+                        outputPath: 'assets'
+                    }
+                }
             },
             {
                 test: /\.(csv|tsv)$/,
@@ -72,10 +80,10 @@ module.exports = {
         })
     ],
 
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-        },
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'all',
+    //     },
+    // },
 
 };

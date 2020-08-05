@@ -54,7 +54,7 @@ const Main = (props) => {
         }
     }, [])
 
-    console.log('User connected with : ', props.user.username)
+    console.log('User connected with : ', props.user)
 
     return (
         <Router>
@@ -97,42 +97,7 @@ const Main = (props) => {
                         </Route>
                         <Route path="/profile">
                             <Suspense fallback={<Loading />}>
-                                <Profile
-                                    data={{
-                                        userType: 'enseignant',
-                                        name: 'khazem',
-                                        firstname: 'khaled',
-                                        username: 'khaled.khazem',
-                                        university: 'mouloud mammeri',
-                                        city: 'tizi-ouzou'
-                                    }}
-
-                                    feed={
-                                        [
-                                            {
-                                                type: 'note',
-                                                date: '4 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 8h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'note',
-                                                date: '17 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: 'Demain le cours aura lieu a 10h au lieu de 9H30.'
-                                            },
-                                            {
-                                                type: 'action',
-                                                date: '24 min',
-                                                name: 'khazem',
-                                                firstname: 'khaled',
-                                                text: "a ajouté un cours a 'Ingenieur System d'information'"
-                                            },
-                                        ]
-                                    }
-                                />
+                                <Profile />
                             </Suspense>
                         </Route>
                     </Switch>
@@ -140,7 +105,7 @@ const Main = (props) => {
 
                 <Footer />
             </div>
-        </Router>
+        </Router >
     )
 }
 

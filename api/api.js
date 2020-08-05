@@ -5,6 +5,8 @@ const port = process.env.PORT || 3001
 
 const SignupApi = require('./signup/signup_api')
 const SigninApi = require('./signin/signin_api')
+const ProfileApi = require('./profile/profile_api')
+const AnnonceApi = require('./annonce/annonce_api')
 
 const db = knex({
     client: 'pg',
@@ -27,6 +29,8 @@ app.get('/', (req, res) => {
 
 SignupApi(app, db)
 SigninApi(app, db)
+ProfileApi(app, db)
+AnnonceApi(app, db)
 
 app.listen(port, () => {
     console.log("<> Erpone Back server up on port : ", port)
