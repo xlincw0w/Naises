@@ -1,5 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
     mode: 'development',
@@ -10,6 +10,7 @@ module.exports = {
     devtool: 'cheap-module-source-map',
     devServer: {
         historyApiFallback: true,
+        host: '0.0.0.0',
         contentBase: './dist',
         hot: true,
         stats: {
@@ -26,7 +27,7 @@ module.exports = {
             errors: true,
             errorDetails: false,
             warnings: true,
-            publicPath: false
+            publicPath: false,
         },
     },
 
@@ -40,50 +41,38 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                ],
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: ['file-loader'],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader',
-                ],
+                use: ['file-loader'],
             },
             {
                 test: /\.(csv|tsv)$/,
-                use: [
-                    'csv-loader',
-                ],
+                use: ['csv-loader'],
             },
             {
                 test: /\.xml$/,
-                use: [
-                    'xml-loader',
-                ],
+                use: ['xml-loader'],
             },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
-                }
-            }
+                    loader: 'babel-loader',
+                },
+            },
         ],
     },
 
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.html',
-            favicon: './pngtitle.ico'
-        })
-    ]
-
-};
+            favicon: './pngtitle.ico',
+        }),
+    ],
+}

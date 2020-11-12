@@ -7,3 +7,13 @@
         font-size: 1.8rem;
     }
 }
+
+.bigscreen {
+    height: 700px;
+}
+
+@media screen and (max-width: 1600px) {
+    .bigscreen {
+        height: 600px;
+    }
+}

@@ -1,5 +1,5 @@
 export const constants = {
-    url: 'http://localhost:3001',
+    url: 'http://41.109.96.120:3001',
 
     // regex
     username_rg: /^[A-Za-z]+[A-Za-z0-9 ]*$/,
