@@ -18,6 +18,10 @@ firebase.initializeApp(firebaseConfig)
 
 const dbref = firebase.database().ref()
 
-dbref.child('users/xlincw0w').on('value', (snapshot) => {
-  console.log(snapshot.val())
+// dbref.child('users/xlincw0w').on('value', (snapshot) => {
+//   console.log(snapshot.val())
+// })
+
+dbref.on("value", (snap) => {
+  console.log(snap.val())
 })
